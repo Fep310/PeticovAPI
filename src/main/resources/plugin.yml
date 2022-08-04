@@ -1,0 +1,7 @@
+name: PeticovAPI
+version: '${project.version}'
+main: me.fep310.peticovapi.PeticovAPI
+api-version: 1.19
+authors: [ Fep310 ]
+description: Fep310's main API for developing plugins.
+website: github.com/fep310
