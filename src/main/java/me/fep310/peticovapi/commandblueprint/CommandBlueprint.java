@@ -104,7 +104,7 @@ public abstract class CommandBlueprint implements CommandExecutor, TabCompleter 
 
     private void showHelp(CommandSender sender) {
 
-        if (!(argOptions != null && !argOptions.isEmpty())) {
+        if (argOptions.isEmpty()) {
             OutcomeUtils.fail(sender, "This command doesn't have any arguments.");
             return;
         }
@@ -132,11 +132,11 @@ public abstract class CommandBlueprint implements CommandExecutor, TabCompleter 
 
         for (ArgOption describedArg : describedArgs) {
 
-            StringBuilder rightUsageBuilder = new StringBuilder("&b/").append(name);
+            StringBuilder rightUsageBuilder = new StringBuilder("&b/").append(name); // &b/name
 
             String[] prevArgs = describedArg.getPreviousArgs();
             if (prevArgs != null && prevArgs.length > 0) {
-                rightUsageBuilder.append(String.join(" ", prevArgs));
+                rightUsageBuilder.append(" ").append(String.join(" ", prevArgs));
             }
 
             if (describedArg instanceof ArgOptionLabel stringArg) {
@@ -241,7 +241,10 @@ public abstract class CommandBlueprint implements CommandExecutor, TabCompleter 
 
                     return _prevArgsList.equals(prevArgsList);
                 })
-                .forEach(a -> completions.addAll(a.getCompletions()));
+                .forEach(argOption -> completions.addAll(
+                        argOption instanceof ArgOptionString argOptionString ?
+                                argOptionString.getCompletions(sender) :
+                                argOption.getCompletions()));
 
         if (argIndex == 0 && (helpType == HelpType.AS_ARGUMENT || helpType == HelpType.BOTH))
             completions.add("help");
