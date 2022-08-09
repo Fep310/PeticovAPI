@@ -8,8 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class OutcomeUtils {
 
-    // TODO: Here we handle all the messages and sounds sent to the actors (Audience)
-
     private static final Sound DEFAULT_SOUND = Sound.BLOCK_NOTE_BLOCK_BIT;
     private static final float DEFAULT_VOLUME = .8f;
     private static final float DEFAULT_PITCH = 1.25f;
@@ -21,6 +19,13 @@ public class OutcomeUtils {
             PeticovUtil.sendMessage(sender, "&a"+comment);
 
         tryPlaySound(sender, DEFAULT_SOUND, DEFAULT_VOLUME, SUCCESS_PITCH);
+    }
+
+    public static void warn(CommandSender sender, @Nullable String comment) {
+        if (comment != null)
+            PeticovUtil.sendMessage(sender, "&e"+comment);
+
+        tryPlaySound(sender, DEFAULT_SOUND, DEFAULT_VOLUME, DEFAULT_PITCH);
     }
 
     public static void showRightUsage(CommandSender sender, @Nullable String comment, String rightUsage) {

@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PeticovUtil {
 
@@ -23,6 +24,15 @@ public class PeticovUtil {
         ItemStack itemStack = new ItemStack(material, quantity);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.displayName(text(name));
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
+    }
+
+    public static ItemStack itemStack(Material material, int quantity, String name, List<String> lore) {
+        ItemStack itemStack = new ItemStack(material, quantity);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        itemMeta.displayName(text(name));
+        itemMeta.lore(lore.stream().map(PeticovUtil::text).collect(Collectors.toList()));
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }
